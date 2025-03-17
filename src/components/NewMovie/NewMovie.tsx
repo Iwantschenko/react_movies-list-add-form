@@ -18,13 +18,8 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
   const [imdbUrl, setImdbUrl] = useState('');
   const [imdbId, setImdbId] = useState('');
 
-  const checkForEmptyField = () => {
-    if (!title || !imgUrl || !imdbUrl || !imdbId) {
-      return true;
-    }
-
-    return false;
-  };
+  const areFieldsValid =
+    title.trim() && imgUrl.trim() && imdbUrl.trim() && imdbId.trim();
 
   const resetAll = () => {
     setTitle('');
@@ -46,7 +41,7 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
       imdbId: imdbId,
     };
 
-    if (checkForEmptyField()) {
+    if (!areFieldsValid) {
       return;
     }
 
@@ -103,7 +98,7 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
             type="submit"
             data-cy="submit-button"
             className="button is-link"
-            disabled={checkForEmptyField()}
+            disabled={!areFieldsValid}
           >
             Add
           </button>
